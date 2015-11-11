@@ -3,7 +3,7 @@ package com.manuviswam.parser;
 import com.manuviswam.constants.App;
 import com.manuviswam.helpers.Time;
 import com.manuviswam.model.Direction;
-import com.manuviswam.model.VehiclEntryCreationException;
+import com.manuviswam.model.VehicleEntryCreationException;
 import com.manuviswam.model.VehicleEntry;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class VehicleEntryParser {
                     input = tryAddSouthWardsEntry(input, entries);
                 else
                     input = tryAddNorthWardsEntry(input, entries);
-            } catch (VehiclEntryCreationException e) {
+            } catch (VehicleEntryCreationException e) {
                 System.out.println("Error while creating entry");
                 return emptyList;
             }
@@ -45,25 +45,26 @@ public class VehicleEntryParser {
         return input.size() < numberOfEntriesNeeded;
     }
 
-    private List<String> tryAddSouthWardsEntry(List<String> input, List<VehicleEntry> entries) throws VehiclEntryCreationException {
+    private List<String> tryAddSouthWardsEntry(List<String> input, List<VehicleEntry> entries) throws VehicleEntryCreationException {
         String frontAxleSensor1Entry = input.get(0);
         String frontAxleSensor2Entry = input.get(1);
         String rearAxleSensor1Entry = input.get(2);
         String rearAxleSensor2Entry = input.get(3);
         if(!isOrderOfEntriesValid(frontAxleSensor1Entry,frontAxleSensor2Entry,rearAxleSensor1Entry,rearAxleSensor2Entry))
-            throw new VehiclEntryCreationException("Invalid order of entries : " + frontAxleSensor1Entry + "," + frontAxleSensor2Entry + "," + rearAxleSensor1Entry + "," + rearAxleSensor2Entry);
+            throw new VehicleEntryCreationException("Invalid order of entries : " + frontAxleSensor1Entry + "," + frontAxleSensor2Entry + "," + rearAxleSensor1Entry + "," + rearAxleSensor2Entry);
 
         int frontAxleSensor1Time = Time.parseMilliSecondFromInput(frontAxleSensor1Entry);
         int frontAxleSensor2Time = Time.parseMilliSecondFromInput(frontAxleSensor2Entry);
         int rearAxleSensor1Time = Time.parseMilliSecondFromInput(rearAxleSensor1Entry);
         int rearAxleSensor2Time = Time.parseMilliSecondFromInput(rearAxleSensor2Entry);
 
-        if (frontAxleSensor1Time < 0 || frontAxleSensor2Time < 0 || rearAxleSensor1Time < 0 || rearAxleSensor2Time < 0)
-            throw new VehiclEntryCreationException("Invalid values for time : " + frontAxleSensor1Time + "," + frontAxleSensor2Time + "," + rearAxleSensor1Time + "," +rearAxleSensor2Time);
         int frontAxleTime = (frontAxleSensor1Time + frontAxleSensor2Time)/2;
         int rearAxleTime = (rearAxleSensor1Time + rearAxleSensor2Time)/2;
 
-        entries.add(new VehicleEntry(frontAxleTime,rearAxleTime,Direction.SOUTH));
+        VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.SOUTH);
+        if (!entry.isValid())
+            throw new VehicleEntryCreationException("Invalid record : " + entry);
+        entries.add(entry);
         return input.subList(4,input.size());
     }
 
@@ -74,16 +75,17 @@ public class VehicleEntryParser {
                 && rearAxleSensor2Entry.startsWith(App.SENSOR2_PREFIX);
     }
 
-    private List<String> tryAddNorthWardsEntry(List<String> input, List<VehicleEntry> entries) throws VehiclEntryCreationException {
+    private List<String> tryAddNorthWardsEntry(List<String> input, List<VehicleEntry> entries) throws VehicleEntryCreationException {
         String frontAxleEntry = input.get(0);
         String rearAxleEntry = input.get(1);
 
         int frontAxleTime = Time.parseMilliSecondFromInput(frontAxleEntry);
         int rearAxleTime = Time.parseMilliSecondFromInput(rearAxleEntry);
-        if (frontAxleTime < 0 || rearAxleTime < 0)
-            throw new VehiclEntryCreationException("Invalid values for time : " + frontAxleEntry + "," + rearAxleEntry);
 
-        entries.add(new VehicleEntry(frontAxleTime,rearAxleTime,Direction.NORTH));
+        VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.NORTH);
+        if (!entry.isValid())
+            throw new VehicleEntryCreationException("Invalid record : " + entry);
+        entries.add(entry);
         return input.subList(2,input.size());
     }
 
