@@ -1,6 +1,6 @@
 package com.manuviswam.io;
 
-import com.manuviswam.constants.AppConstants;
+import com.manuviswam.constants.App;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class InputReader {
     }
 
     private boolean isValid(String line){
-        Pattern validator = Pattern.compile(AppConstants.INPUT_VALIDATION_REGEX);
+        Pattern validator = Pattern.compile(App.INPUT_VALIDATION_REGEX);
 
         return validator.matcher(line).matches();
     }
