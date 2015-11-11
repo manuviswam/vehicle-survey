@@ -2,9 +2,11 @@ package com.manuviswam.model;
 
 import com.manuviswam.constants.Time;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 public class SessionOfTheDay {
     public Date startTime;
@@ -29,5 +31,13 @@ public class SessionOfTheDay {
             sessions.add(new SessionOfTheDay(startTime,endTime));
         }
         return sessions;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        sdf.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
+
+        return "Session " + sdf.format(startTime) + " to " + sdf.format(endTime);
     }
 }
