@@ -7,6 +7,7 @@ import com.manuviswam.model.VehicleEntryCreationException;
 import com.manuviswam.model.VehicleEntry;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VehicleEntryParser {
@@ -15,12 +16,14 @@ public class VehicleEntryParser {
     public static final int ENTRIES_FOR_SOUTH_DIRECTION = 4;
     public static final int MINIMUM_NUMBER_OF_ENTRIES_NEEDED = 2;
 
-    private int currentDay ;
+    private int currentDay;
+    private Date lastEntryTime;
 
     public List<VehicleEntry> parse(List<String> input){
         List<VehicleEntry> emptyList = new ArrayList<>();
         List<VehicleEntry> entries = new ArrayList<>();
-        currentDay =0;
+        currentDay = 0;
+        lastEntryTime = new Date(0);
 
         while (input.size() > 0){
             if (isInsufficientEntries(input, MINIMUM_NUMBER_OF_ENTRIES_NEEDED)){
@@ -67,6 +70,7 @@ public class VehicleEntryParser {
         VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.SOUTH, currentDay);
         if (!entry.isValid())
             throw new VehicleEntryCreationException("Invalid record : " + entry);
+        updateDayIfNeeded(entry);
         entries.add(entry);
         return input.subList(4,input.size());
     }
@@ -88,8 +92,18 @@ public class VehicleEntryParser {
         VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.NORTH, currentDay);
         if (!entry.isValid())
             throw new VehicleEntryCreationException("Invalid record : " + entry);
+        updateDayIfNeeded(entry);
         entries.add(entry);
         return input.subList(2,input.size());
+    }
+
+    private void updateDayIfNeeded(VehicleEntry entry) {
+        Date currentEntryTime = entry.entryTime();
+        if (currentEntryTime.compareTo(lastEntryTime) < 0){
+            currentDay++;
+            entry.setDay(currentDay);
+        }
+        lastEntryTime = currentEntryTime;
     }
 
     private Direction findDirection(String firstEntry, String secondEntry) {

@@ -112,4 +112,43 @@ public class VehicleEntryParserTest {
 
         assertTrue(output.isEmpty());
     }
+
+
+    @Test
+    public void shouldIncrementDayIfOneEntryTimeIsLessThanPreviousEntryTimeOnNorthDirection() throws Exception {
+        List<String> input = new ArrayList<>(Arrays.asList("A2000", "A2005", "A1000", "A1005"));
+        List<VehicleEntry> output = new VehicleEntryParser().parse(input);
+
+        assertEquals(0,output.get(0).getDay());
+        assertEquals(1,output.get(1).getDay());
+    }
+
+    @Test
+    public void shouldIncrementDayIfOneEntryTimeIsLessThanPreviousEntryTimeOnSouthDirection() throws Exception {
+        List<String> input = new ArrayList<>(Arrays.asList("A2000", "B2005", "A2100", "B2105", "A1000", "B1005", "A1100", "B1105"));
+        List<VehicleEntry> output = new VehicleEntryParser().parse(input);
+
+        assertEquals(0,output.get(0).getDay());
+        assertEquals(1,output.get(1).getDay());
+    }
+
+    @Test
+    public void shouldNotIncrementDayIfSecondEntryTimeIsGreaterThanPreviousEntryTimeOnNorthDirection() throws Exception {
+        List<String> input = new ArrayList<>(Arrays.asList("A2000", "A2005", "A3000", "A3005"));
+        List<VehicleEntry> output = new VehicleEntryParser().parse(input);
+
+        assertEquals(0,output.get(0).getDay());
+        assertEquals(0,output.get(1).getDay());
+    }
+
+    @Test
+    public void shouldNotIncrementDayIfSecondEntryTimeIsGreaterThanPreviousEntryTimeOnSouthDirection() throws Exception {
+        List<String> input = new ArrayList<>(Arrays.asList("A2000", "B2005", "A2100", "B2105", "A3000", "B3005", "A3100", "B3105"));
+        List<VehicleEntry> output = new VehicleEntryParser().parse(input);
+
+        assertEquals(0,output.get(0).getDay());
+        assertEquals(0,output.get(1).getDay());
+    }
+
+
 }

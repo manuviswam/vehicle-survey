@@ -20,6 +20,10 @@ public class VehicleEntry {
         return day;
     }
 
+    public void setDay(int day) {
+        this.day = day;
+    }
+
     public VehicleEntry(int frontAxleTime, int rearAxleTime, Direction direction, int day) {
         this.frontAxleTime = frontAxleTime;
         this.rearAxleTime = rearAxleTime;
