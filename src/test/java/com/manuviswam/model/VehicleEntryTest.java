@@ -3,6 +3,8 @@ package com.manuviswam.model;
 import com.manuviswam.constants.Time;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class VehicleEntryTest {
@@ -57,5 +59,13 @@ public class VehicleEntryTest {
         VehicleEntry output = new VehicleEntry(1000, 500, Direction.SOUTH);
 
         assertEquals(0d, output.speedInKMPH(), DELTA);
+    }
+
+
+    @Test
+    public void shouldReturnTimeOfEntry() throws Exception {
+        VehicleEntry output = new VehicleEntry(1000, 2000, Direction.SOUTH);
+        Date expected = new Date(1500);
+        assertEquals(expected, output.entryTime());
     }
 }

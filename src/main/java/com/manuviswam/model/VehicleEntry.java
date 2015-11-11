@@ -4,6 +4,8 @@ import com.manuviswam.constants.App;
 import com.manuviswam.constants.Time;
 import com.manuviswam.helpers.TimeParser;
 
+import java.util.Date;
+
 public class VehicleEntry {
     private int frontAxleTime;
     private int rearAxleTime;
@@ -26,6 +28,10 @@ public class VehicleEntry {
         double timeTakenToPassCounter = TimeParser.convertToHour(rearAxleTime - frontAxleTime);
         double speedInMeterPerSecond =  App.LENGTH_OF_VEHICLE / timeTakenToPassCounter;
         return speedInMeterPerSecond;
+    }
+
+    public Date entryTime(){
+        return new Date((frontAxleTime + rearAxleTime)/2);
     }
 
     public boolean isValid(){
