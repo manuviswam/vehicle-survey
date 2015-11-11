@@ -7,7 +7,7 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VehicleCountProcessor implements IDataProcessor {
+public class VehicleCountProcessor extends SessionViceProcessr {
     int interval; //in minutes
 
     public VehicleCountProcessor(int interval) {
@@ -42,12 +42,5 @@ public class VehicleCountProcessor implements IDataProcessor {
 
     private int countEntriesForTheDay(List<VehicleEntry> sessionEntries, int day) {
         return sessionEntries.stream().filter(entry -> entry.getDay() == day).collect(Collectors.toList()).size();
-    }
-
-    private List<VehicleEntry> getEntriesInTheSession(List<VehicleEntry> entries, SessionOfTheDay session) {
-        return entries.stream().
-                filter(entry -> entry.entryTime().compareTo(session.startTime) >= 0
-                        && entry.entryTime().compareTo(session.endTime) < 0)
-                .collect(Collectors.toList());
     }
 }
