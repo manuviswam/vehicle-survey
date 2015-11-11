@@ -35,7 +35,7 @@ public class SessionOfTheDay {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         sdf.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
 
         return "Session " + sdf.format(startTime) + " to " + sdf.format(endTime);
