@@ -6,10 +6,10 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class SessionViceProcessr implements IDataProcessor {
+public abstract class SessionViceProcessor implements IDataProcessor {
     @Override
     public abstract String process(List<VehicleEntry> entries);
-    
+
     protected List<VehicleEntry> getEntriesInTheSession(List<VehicleEntry> entries, SessionOfTheDay session) {
         return entries.stream().
                 filter(entry -> entry.entryTime().compareTo(session.startTime) >= 0

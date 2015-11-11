@@ -6,4 +6,5 @@ public class App {
     public static final String SENSOR2_PREFIX = "B";
     public static final double LENGTH_OF_VEHICLE = 0.0025; //in km
     public static final int NUMBER_OF_DAYS = 5;
+    public static final double AVERAGE_SPEED = 16.6667; // in m/s
 }
