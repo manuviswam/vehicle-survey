@@ -23,7 +23,7 @@ public class InputReader {
 
             while ((line = reader.readLine()) != null) {
                 if (isValid(line)) {
-                    inputLines.add(line);
+                    inputLines.add(line.toUpperCase());
                 } else {
                     System.out.println("Invalid input line : " + line);
                     return emptyList;

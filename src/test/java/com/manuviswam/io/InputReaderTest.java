@@ -39,6 +39,17 @@ public class InputReaderTest {
         assertTrue(output.isEmpty());
     }
 
+    @Test
+    public void shouldCapitalizeDirectionAlphabet() throws Exception {
+        String input = "a268981\nb269123\na604957";
+        StringReader reader = new StringReader(input);
+
+        List<String> output = new InputReader(reader).getAllInputLines();
+        assertTrue(output.contains("A268981"));
+        assertTrue(output.contains("B269123"));
+        assertTrue(output.contains("A604957"));
+    }
+
     private class FakeReader extends Reader {
 
         @Override
