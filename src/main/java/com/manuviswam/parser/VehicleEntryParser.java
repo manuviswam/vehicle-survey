@@ -1,7 +1,7 @@
 package com.manuviswam.parser;
 
 import com.manuviswam.constants.App;
-import com.manuviswam.helpers.Time;
+import com.manuviswam.helpers.TimeParser;
 import com.manuviswam.model.Direction;
 import com.manuviswam.model.VehicleEntryCreationException;
 import com.manuviswam.model.VehicleEntry;
@@ -53,10 +53,10 @@ public class VehicleEntryParser {
         if(!isOrderOfEntriesValid(frontAxleSensor1Entry,frontAxleSensor2Entry,rearAxleSensor1Entry,rearAxleSensor2Entry))
             throw new VehicleEntryCreationException("Invalid order of entries : " + frontAxleSensor1Entry + "," + frontAxleSensor2Entry + "," + rearAxleSensor1Entry + "," + rearAxleSensor2Entry);
 
-        int frontAxleSensor1Time = Time.parseMilliSecondFromInput(frontAxleSensor1Entry);
-        int frontAxleSensor2Time = Time.parseMilliSecondFromInput(frontAxleSensor2Entry);
-        int rearAxleSensor1Time = Time.parseMilliSecondFromInput(rearAxleSensor1Entry);
-        int rearAxleSensor2Time = Time.parseMilliSecondFromInput(rearAxleSensor2Entry);
+        int frontAxleSensor1Time = TimeParser.parseMilliSecondFromInput(frontAxleSensor1Entry);
+        int frontAxleSensor2Time = TimeParser.parseMilliSecondFromInput(frontAxleSensor2Entry);
+        int rearAxleSensor1Time = TimeParser.parseMilliSecondFromInput(rearAxleSensor1Entry);
+        int rearAxleSensor2Time = TimeParser.parseMilliSecondFromInput(rearAxleSensor2Entry);
 
         int frontAxleTime = (frontAxleSensor1Time + frontAxleSensor2Time)/2;
         int rearAxleTime = (rearAxleSensor1Time + rearAxleSensor2Time)/2;
@@ -79,8 +79,8 @@ public class VehicleEntryParser {
         String frontAxleEntry = input.get(0);
         String rearAxleEntry = input.get(1);
 
-        int frontAxleTime = Time.parseMilliSecondFromInput(frontAxleEntry);
-        int rearAxleTime = Time.parseMilliSecondFromInput(rearAxleEntry);
+        int frontAxleTime = TimeParser.parseMilliSecondFromInput(frontAxleEntry);
+        int rearAxleTime = TimeParser.parseMilliSecondFromInput(rearAxleEntry);
 
         VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.NORTH);
         if (!entry.isValid())

@@ -1,6 +1,6 @@
 package com.manuviswam.helpers;
 
-public class Time {
+public class TimeParser {
 
     public static int parseMilliSecondFromInput(String input){
         try {
