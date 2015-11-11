@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class VehicleEntryTest {
+    private static final double DELTA = 1e-15;
 
     @Test
     public void shouldReturnFalseForFrontAxleTimeLessThanZero() throws Exception {
@@ -41,5 +42,20 @@ public class VehicleEntryTest {
     public void shouldReturnTrueForValidData() throws Exception {
         VehicleEntry output = new VehicleEntry(1,2,Direction.SOUTH);
         assertTrue(output.isValid());
+    }
+
+
+    @Test
+    public void shouldReturnSpeedOfVehicle() throws Exception {
+        VehicleEntry output = new VehicleEntry(1000, 2000, Direction.SOUTH);
+
+        assertEquals(9d, output.speedInKMPH(), DELTA);
+    }
+
+    @Test
+    public void shouldReturnZeroForSpeedIfDataIsInvalid() throws Exception {
+        VehicleEntry output = new VehicleEntry(1000, 500, Direction.SOUTH);
+
+        assertEquals(0d, output.speedInKMPH(), DELTA);
     }
 }

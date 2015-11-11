@@ -1,5 +1,7 @@
 package com.manuviswam.helpers;
 
+import com.manuviswam.constants.Time;
+
 public class TimeParser {
 
     public static int parseMilliSecondFromInput(String input){
@@ -17,9 +19,9 @@ public class TimeParser {
     public static double convertToHour(int milliseconds){
         if (milliseconds <0 )
             return -1;
-        int minutesInHour = com.manuviswam.constants.Time.MINUTES_IN_A_HOUR;
-        int secondsInMinute = com.manuviswam.constants.Time.SECONDS_IN_A_MINUTE;
-        int milliSecondsInSecond = com.manuviswam.constants.Time.MILLISECONDS_IN_A_SECOND;
-        return milliseconds/(milliSecondsInSecond * secondsInMinute * minutesInHour);
+        double minutesInHour = Time.MINUTES_IN_A_HOUR;
+        double secondsInMinute = Time.SECONDS_IN_A_MINUTE;
+        double milliSecondsInSecond = Time.MILLISECONDS_IN_A_SECOND;
+        return ((double)milliseconds)/(milliSecondsInSecond * secondsInMinute * minutesInHour);
     }
 }

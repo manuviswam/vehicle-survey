@@ -1,6 +1,9 @@
 package com.manuviswam.model;
 
+import com.manuviswam.constants.App;
 import com.manuviswam.constants.Time;
+import com.manuviswam.helpers.TimeParser;
+
 public class VehicleEntry {
     private int frontAxleTime;
     private int rearAxleTime;
@@ -16,8 +19,13 @@ public class VehicleEntry {
         this.rearAxleTime = rearAxleTime;
         this.direction = direction;
     }
-    public int speedInKMPH(){
-        return -1;
+
+    public double speedInKMPH(){
+        if (!isValid())
+            return 0;
+        double timeTakenToPassCounter = TimeParser.convertToHour(rearAxleTime - frontAxleTime);
+        double speedInMeterPerSecond =  App.LENGTH_OF_VEHICLE / timeTakenToPassCounter;
+        return speedInMeterPerSecond;
     }
 
     public boolean isValid(){
