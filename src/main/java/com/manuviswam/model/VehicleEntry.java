@@ -9,17 +9,22 @@ import java.util.Date;
 public class VehicleEntry {
     private int frontAxleTime;
     private int rearAxleTime;
-
     private Direction direction;
+    private int day;
 
     public Direction getDirection() {
         return direction;
     }
 
-    public VehicleEntry(int frontAxleTime, int rearAxleTime, Direction direction) {
+    public int getDay() {
+        return day;
+    }
+
+    public VehicleEntry(int frontAxleTime, int rearAxleTime, Direction direction, int day) {
         this.frontAxleTime = frontAxleTime;
         this.rearAxleTime = rearAxleTime;
         this.direction = direction;
+        this.day = day;
     }
 
     public double speedInKMPH(){

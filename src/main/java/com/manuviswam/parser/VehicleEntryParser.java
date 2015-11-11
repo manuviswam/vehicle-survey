@@ -15,9 +15,12 @@ public class VehicleEntryParser {
     public static final int ENTRIES_FOR_SOUTH_DIRECTION = 4;
     public static final int MINIMUM_NUMBER_OF_ENTRIES_NEEDED = 2;
 
+    private int currentDay ;
+
     public List<VehicleEntry> parse(List<String> input){
         List<VehicleEntry> emptyList = new ArrayList<>();
         List<VehicleEntry> entries = new ArrayList<>();
+        currentDay =0;
 
         while (input.size() > 0){
             if (isInsufficientEntries(input, MINIMUM_NUMBER_OF_ENTRIES_NEEDED)){
@@ -61,7 +64,7 @@ public class VehicleEntryParser {
         int frontAxleTime = (frontAxleSensor1Time + frontAxleSensor2Time)/2;
         int rearAxleTime = (rearAxleSensor1Time + rearAxleSensor2Time)/2;
 
-        VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.SOUTH);
+        VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.SOUTH, currentDay);
         if (!entry.isValid())
             throw new VehicleEntryCreationException("Invalid record : " + entry);
         entries.add(entry);
@@ -82,7 +85,7 @@ public class VehicleEntryParser {
         int frontAxleTime = TimeParser.parseMilliSecondFromInput(frontAxleEntry);
         int rearAxleTime = TimeParser.parseMilliSecondFromInput(rearAxleEntry);
 
-        VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.NORTH);
+        VehicleEntry entry = new VehicleEntry(frontAxleTime, rearAxleTime, Direction.NORTH, currentDay);
         if (!entry.isValid())
             throw new VehicleEntryCreationException("Invalid record : " + entry);
         entries.add(entry);
