@@ -5,7 +5,7 @@ import com.manuviswam.model.VehicleEntry;
 
 import java.util.List;
 
-public class SpeedDistributionProcessor extends SessionViceProcessor {
+public class SpeedDistributionProcessor extends BaseProcessor {
     int sessionInterval;
 
     public SpeedDistributionProcessor(int sessionInterval) {

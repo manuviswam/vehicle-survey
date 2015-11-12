@@ -6,7 +6,7 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class SessionViceProcessor implements IDataProcessor {
+public abstract class BaseProcessor implements IDataProcessor {
     @Override
     public abstract String process(List<VehicleEntry> entries);
 

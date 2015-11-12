@@ -8,7 +8,7 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VehicleCountProcessor extends SessionViceProcessor {
+public class VehicleCountProcessor extends BaseProcessor {
     int interval; //in minutes
 
     public VehicleCountProcessor(int interval) {

@@ -7,7 +7,7 @@ import com.manuviswam.model.VehicleEntry;
 
 import java.util.List;
 
-public class AverageDistanceProcessor extends SessionViceProcessor {
+public class AverageDistanceProcessor extends BaseProcessor {
     int sessionInterval;
 
     public AverageDistanceProcessor(int sessionInterval) {
