@@ -2,6 +2,7 @@ package com.manuviswam.processors;
 
 import com.manuviswam.constants.App;
 import com.manuviswam.constants.Time;
+import com.manuviswam.model.Direction;
 import com.manuviswam.model.SessionOfTheDay;
 import com.manuviswam.model.VehicleEntry;
 
@@ -21,8 +22,11 @@ public class AverageDistanceProcessor extends BaseProcessor {
         List<SessionOfTheDay> sessions = SessionOfTheDay.createSessionsWithInterval(sessionInterval);
         for (SessionOfTheDay session : sessions){
             List<VehicleEntry> entriesInTheSession = getEntriesInTheSession(entries, session);
-            double distance = getAverageDistance(entriesInTheSession);
-            sb.append(session + " | Average distance between cars = " + distance + " meters\n");
+            List<VehicleEntry> entriesInSouthDirection = getEntriesInTheDirection(entriesInTheSession, Direction.SOUTH);
+            List<VehicleEntry> entriesInNorthDirection = getEntriesInTheDirection(entriesInTheSession, Direction.NORTH);
+            double distanceInSouthDirection = getAverageDistance(entriesInSouthDirection);
+            double distanceInNorthDirection = getAverageDistance(entriesInNorthDirection);
+            sb.append(session + " | Average distance between cars in south direction = " + distanceInSouthDirection + " meters, in north direction = "+ distanceInNorthDirection +" meters\n");
         }
         return sb.toString();
     }
