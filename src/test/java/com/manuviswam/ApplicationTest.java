@@ -1,5 +1,6 @@
 package com.manuviswam;
 
+import com.manuviswam.io.FileHelper;
 import com.manuviswam.model.VehicleEntry;
 import com.manuviswam.processors.IDataProcessor;
 import org.junit.After;
@@ -37,7 +38,7 @@ public class ApplicationTest {
         FakeProcessor processor = new FakeProcessor("");
         processors.put("Processor 1", processor);
 
-        new Application(reader, processors).run();
+        new Application(reader, processors, false).run();
 
         assertFalse(processor.isInvoked());
     }
@@ -50,7 +51,7 @@ public class ApplicationTest {
         processors.put("Processor 1", processor);
         processors.put("Processor 2", processor2);
 
-        new Application(reader, processors).run();
+        new Application(reader, processors, false).run();
 
         assertTrue(processor.isInvoked());
         assertTrue(processor2.isInvoked());
@@ -64,7 +65,7 @@ public class ApplicationTest {
         processors.put("Processor 1", processor);
         processors.put("Processor 2", processor2);
 
-        new Application(reader, processors).run();
+        new Application(reader, processors, false).run();
 
         assertTrue(outContent.toString().contains("Processor 1"));
         assertTrue(outContent.toString().contains("Processor 2"));
@@ -78,7 +79,7 @@ public class ApplicationTest {
         processors.put("Processor 1", processor);
         processors.put("Processor 2", processor2);
 
-        new Application(reader, processors).run();
+        new Application(reader, processors, false).run();
 
         assertTrue(outContent.toString().contains("Output of processor 1"));
         assertTrue(outContent.toString().contains("Output of processor 1"));

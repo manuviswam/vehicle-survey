@@ -5,12 +5,11 @@ import com.manuviswam.io.FileHelper;
 import com.manuviswam.io.InputReader;
 import com.manuviswam.model.VehicleEntry;
 import com.manuviswam.parser.VehicleEntryParser;
+import com.manuviswam.processors.AverageDistanceProcessor;
 import com.manuviswam.processors.IDataProcessor;
 import com.manuviswam.processors.SpeedDistributionProcessor;
 import com.manuviswam.processors.VehicleCountProcessor;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
@@ -20,10 +19,12 @@ import java.util.Map;
 public class Application {
     private Reader reader;
     private Map<String, IDataProcessor> processors = new HashMap<>();
+    private boolean shouldWriteOutputToFile;
 
-    public Application(Reader reader, Map<String, IDataProcessor> processors) {
+    public Application(Reader reader, Map<String, IDataProcessor> processors, boolean shouldWriteOutputToFile) {
         this.reader = reader;
         this.processors = processors;
+        this.shouldWriteOutputToFile = shouldWriteOutputToFile;
     }
 
     public void run(){
@@ -41,8 +42,17 @@ public class Application {
 
         processors.forEach( (key, processor) -> {
             System.out.println(key);
-            System.out.println(processor.process(allEntries));
+            String output = processor.process(allEntries);
+            System.out.println(output);
+            if (shouldWriteOutputToFile){
+                FileHelper.writeStringToFile(getFilePath(key), output);
+            }
         });
+    }
+
+    private String getFilePath(String key) {
+        FileHelper.createFolderIfNotExist("out");
+        return "out/" + key.replace(" ","-") + ".txt";
     }
 
     public static void main(String[] args) {
@@ -50,7 +60,7 @@ public class Application {
         if (args.length == 0) {
             reader = new InputStreamReader(Application.class.getClassLoader().getResourceAsStream(App.DEFAULT_INPUT_FILE_PATH));
         }else {
-            reader = new FileHelper().getReaderFromFile(args[0]);
+            reader = FileHelper.getReaderFromFile(args[0]);
         }
         if (reader == null){
             System.out.println("Error getting reader. Exiting application...");
@@ -59,7 +69,7 @@ public class Application {
         int[] intervalsInMinutes = {720, 60, 30, 20, 15};
         HashMap<String, IDataProcessor> processors = createProcessorsWithIntervals(intervalsInMinutes);
 
-        new Application(reader, processors).run();
+        new Application(reader, processors, true).run();
     }
 
     private static HashMap<String, IDataProcessor> createProcessorsWithIntervals(int[] intervalsInMinutes) {
@@ -70,7 +80,7 @@ public class Application {
             key = "Speed distribution in " + interval + " minute intervals";
             processors.put(key, new SpeedDistributionProcessor(interval));
             key = "Average distance of vehicles in " + interval + " minute intervals";
-            processors.put(key, new SpeedDistributionProcessor(interval));
+            processors.put(key, new AverageDistanceProcessor(interval));
         }
         return processors;
     }
