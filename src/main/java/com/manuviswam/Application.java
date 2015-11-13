@@ -1,9 +1,25 @@
 package com.manuviswam;
 
+import com.manuviswam.processors.IDataProcessor;
+
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Application {
+    private Reader reader;
+    private Map<String, IDataProcessor> processors = new HashMap<>();
+
+    public Application(Reader reader, Map<String, IDataProcessor> processors) {
+        this.reader = reader;
+        this.processors = processors;
+    }
+
+    public void run(){
+
+    }
+
     public static void main(String[] args) {
-        String defaultPath = Application.class.getClassLoader().getResource(com.manuviswam.constants.App.DEFAULT_INPUT_FILE_PATH ).toString();
-        String inputFilePath = "".equals(args[0]) ? com.manuviswam.constants.App.DEFAULT_INPUT_FILE_PATH : args[0];
 
     }
 }
