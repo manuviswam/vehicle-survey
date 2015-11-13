@@ -1,6 +1,7 @@
 package com.manuviswam;
 
 import com.manuviswam.constants.App;
+import com.manuviswam.io.FileHelper;
 import com.manuviswam.io.InputReader;
 import com.manuviswam.model.VehicleEntry;
 import com.manuviswam.parser.VehicleEntryParser;
@@ -44,17 +45,15 @@ public class Application {
         });
     }
 
-
     public static void main(String[] args) {
-        Reader reader = null;
+        Reader reader;
         if (args.length == 0) {
             reader = new InputStreamReader(Application.class.getClassLoader().getResourceAsStream(App.DEFAULT_INPUT_FILE_PATH));
         }else {
-            try {
-                reader = new FileReader(args[0]);
-            } catch (FileNotFoundException e) {
-                System.out.println("Error reading file : " + args[0] +"\nExiting application...");
-            }
+            reader = new FileHelper().getReaderFromFile(args[0]);
+        }
+        if (reader == null){
+            System.out.println("Error getting reader. Exiting application...");
         }
 
         int[] intervalsInMinutes = {720, 60, 30, 20, 15};
