@@ -25,7 +25,7 @@ public class VehicleEntryParser {
         currentDay = 0;
         lastEntryTime = new Date(0);
 
-        while (input.size() > 0){
+        while (!input.isEmpty()){
             if (isInsufficientEntries(input, MINIMUM_NUMBER_OF_ENTRIES_NEEDED)){
                 return emptyList;
             }

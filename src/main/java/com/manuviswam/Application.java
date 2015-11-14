@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class Application {
     private final Reader reader;
-    private Map<String, IDataProcessor> processors = new HashMap<>();
+    private final Map<String, IDataProcessor> processors;
     private final boolean shouldWriteOutputToFile;
 
     public Application(Reader reader, Map<String, IDataProcessor> processors, boolean shouldWriteOutputToFile) {
@@ -29,13 +29,13 @@ public class Application {
 
     public void run(){
         List<String> allInputLines = new InputReader(reader).getAllInputLines();
-        if (allInputLines.size() == 0){
+        if (allInputLines.isEmpty()){
             System.out.println("Error reading inputs. Exiting application...");
             return;
         }
 
         List<VehicleEntry> allEntries = new VehicleEntryParser().parse(allInputLines);
-        if (allEntries.size() == 0){
+        if (allEntries.isEmpty()){
             System.out.println("Error parsing inputs. Exiting application...");
             return;
         }
@@ -67,12 +67,12 @@ public class Application {
         }
 
         int[] intervalsInMinutes = {720, 60, 30, 20, 15};
-        HashMap<String, IDataProcessor> processors = createProcessorsWithIntervals(intervalsInMinutes);
+        Map<String, IDataProcessor> processors = createProcessorsWithIntervals(intervalsInMinutes);
 
         new Application(reader, processors, true).run();
     }
 
-    private static HashMap<String, IDataProcessor> createProcessorsWithIntervals(int[] intervalsInMinutes) {
+    private static Map<String, IDataProcessor> createProcessorsWithIntervals(int[] intervalsInMinutes) {
         HashMap<String, IDataProcessor> processors = new HashMap<>();
         for (int interval : intervalsInMinutes){
             String key = "Vehicle counts in " + interval + " minute intervals";

@@ -8,7 +8,7 @@ import com.manuviswam.model.VehicleEntry;
 
 import java.util.List;
 
-public class AverageDistanceProcessor extends BaseProcessor {
+public class AverageDistanceProcessor extends AbstractBaseProcessor {
     private final int sessionInterval;
 
     public AverageDistanceProcessor(int sessionInterval) {
@@ -32,7 +32,7 @@ public class AverageDistanceProcessor extends BaseProcessor {
     }
 
     private double getAverageDistance(List<VehicleEntry> entriesInTheSession) {
-        if (entriesInTheSession.size() < 1)
+        if (entriesInTheSession.isEmpty())
             return 0;
             long timeOfLastVehicle = entriesInTheSession.get(entriesInTheSession.size() - 1).entryTime().getTime();
             long timeOfFirstVehicle = entriesInTheSession.get(0).entryTime().getTime();

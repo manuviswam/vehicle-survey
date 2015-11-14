@@ -5,6 +5,7 @@ import com.manuviswam.constants.App;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class InputReader {
@@ -23,7 +24,7 @@ public class InputReader {
 
             while ((line = reader.readLine()) != null) {
                 if (isValid(line)) {
-                    inputLines.add(line.toUpperCase());
+                    inputLines.add(line.toUpperCase(Locale.ENGLISH));
                 } else {
                     System.out.println("Invalid input line : " + line);
                     return emptyList;

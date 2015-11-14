@@ -8,7 +8,7 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class VehicleCountProcessor extends BaseProcessor {
+public class VehicleCountProcessor extends AbstractBaseProcessor {
     private final int interval; //in minutes
 
     public VehicleCountProcessor(int interval) {
@@ -22,7 +22,7 @@ public class VehicleCountProcessor extends BaseProcessor {
         StringBuilder sb = new StringBuilder();
 
         List<SessionOfTheDay> sessions = SessionOfTheDay.createSessionsWithInterval(interval);
-        if (sessions.size() < 1)
+        if (sessions.isEmpty())
             return "";
         for(SessionOfTheDay session : sessions){
             int totalCountAcrossDays = 0;
@@ -34,13 +34,13 @@ public class VehicleCountProcessor extends BaseProcessor {
                 sb.append(" | Day ").append(day).append(" Count South = ").append(southCount).append(" North = ").append(northCount);
                 totalCountAcrossDays += southCount + northCount;
             }
-            sb.append("\n");
+            sb.append('\n');
             if (totalCountAcrossDays > peakVehicleCount){
                 peakVehicleCount = totalCountAcrossDays;
                 peakSession = session;
             }
         }
-        sb.append("\n").append(peakSession).append(" is peak session with a vehicle count of ").append(peakVehicleCount).append(" across ").append(App.NUMBER_OF_DAYS).append(" days");
+        sb.append('\n').append(peakSession).append(" is peak session with a vehicle count of ").append(peakVehicleCount).append(" across ").append(App.NUMBER_OF_DAYS).append(" days");
         return sb.toString();
     }
 
