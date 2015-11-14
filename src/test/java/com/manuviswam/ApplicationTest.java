@@ -20,16 +20,18 @@ public class ApplicationTest {
 
     private HashMap<String, IDataProcessor> processors;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private PrintStream oldOut;
 
     @Before
     public void setUp() throws Exception {
+        oldOut = System.out;
         System.setOut(new PrintStream(outContent));
         processors = new HashMap<>();
     }
 
     @After
     public void tearDown() throws Exception {
-        System.setOut(null);
+        System.setOut(oldOut);
     }
 
     @Test
