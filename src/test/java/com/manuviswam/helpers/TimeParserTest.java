@@ -20,8 +20,20 @@ public class TimeParserTest {
     }
 
     @Test
+    public void shouldReturnMinusOneForNegativeInput() throws Exception {
+        int output = TimeParser.parseMilliSecondFromInput("A-214");
+        assertEquals(-1,output);
+    }
+
+    @Test
     public void shouldReturnMinusOneForLargeInput() throws Exception {
         int output = TimeParser.parseMilliSecondFromInput("A123456789123456789123456789");
+        assertEquals(-1,output);
+    }
+
+    @Test
+    public void shouldReturnMinusOneForNonIntegerInput() throws Exception {
+        int output = TimeParser.parseMilliSecondFromInput("A0.13");
         assertEquals(-1,output);
     }
 
