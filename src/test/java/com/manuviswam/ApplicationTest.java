@@ -46,6 +46,17 @@ public class ApplicationTest {
     }
 
     @Test
+    public void shouldNotCallProcessorIfInputIsInvalid() throws Exception {
+        Reader reader = new StringReader("A2345\nA1234");
+        FakeProcessor processor = new FakeProcessor("");
+        processors.put("Processor 1", processor);
+
+        new Application(reader, processors, false).run();
+
+        assertFalse(processor.isInvoked());
+    }
+
+    @Test
     public void shouldCallAllProcessorsIfInputIsValid() throws Exception {
         Reader reader = new StringReader("A1234\nA1345");
         FakeProcessor processor = new FakeProcessor("");
