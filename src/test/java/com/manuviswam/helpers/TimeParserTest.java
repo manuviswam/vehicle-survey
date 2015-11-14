@@ -45,7 +45,7 @@ public class TimeParserTest {
 
     @Test
     public void shouldReturnMinusOneForNegativeInputs() throws Exception {
-        double output = TimeParser.convertToHour(-1);
+        double output = new TimeParser().convertToHour(-1);
         assertEquals(-1, output, DELTA);
     }
 }
