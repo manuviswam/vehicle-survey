@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class InputReader {
-    private Reader input;
+    private final Reader input;
 
     public InputReader(Reader input) {
         this.input = input;

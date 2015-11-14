@@ -12,9 +12,9 @@ import java.util.List;
 
 public class VehicleEntryParser {
 
-    public static final int ENTRIES_FOR_NORTH_DIRECTION = 2;
-    public static final int ENTRIES_FOR_SOUTH_DIRECTION = 4;
-    public static final int MINIMUM_NUMBER_OF_ENTRIES_NEEDED = 2;
+    private static final int ENTRIES_FOR_NORTH_DIRECTION = 2;
+    private static final int ENTRIES_FOR_SOUTH_DIRECTION = 4;
+    private static final int MINIMUM_NUMBER_OF_ENTRIES_NEEDED = 2;
 
     private int currentDay;
     private Date lastEntryTime;

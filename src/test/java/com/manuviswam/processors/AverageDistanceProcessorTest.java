@@ -12,11 +12,6 @@ import static org.junit.Assert.*;
 
 public class AverageDistanceProcessorTest {
     private List<VehicleEntry> entries = new ArrayList<>();
-    private String expectedOutput =
-            "Session 00:00:00 to 06:00:00 | Average distance between cars in south direction = 16.6667 meters, in north direction = 16.6667 meters\n" +
-            "Session 06:00:00 to 12:00:00 | Average distance between cars in south direction = 0.0 meters, in north direction = 0.0 meters\n" +
-            "Session 12:00:00 to 18:00:00 | Average distance between cars in south direction = 0.0 meters, in north direction = 0.0 meters\n" +
-            "Session 18:00:00 to 00:00:00 | Average distance between cars in south direction = 0.0 meters, in north direction = 0.0 meters\n";
 
     @Before
     public void setUp() throws Exception {
@@ -34,6 +29,10 @@ public class AverageDistanceProcessorTest {
         AverageDistanceProcessor processor = new AverageDistanceProcessor(360);
         String output = processor.process(entries);
 
+        String expectedOutput = "Session 00:00:00 to 06:00:00 | Average distance between cars in south direction = 16.6667 meters, in north direction = 16.6667 meters\n" +
+                "Session 06:00:00 to 12:00:00 | Average distance between cars in south direction = 0.0 meters, in north direction = 0.0 meters\n" +
+                "Session 12:00:00 to 18:00:00 | Average distance between cars in south direction = 0.0 meters, in north direction = 0.0 meters\n" +
+                "Session 18:00:00 to 00:00:00 | Average distance between cars in south direction = 0.0 meters, in north direction = 0.0 meters\n";
         assertEquals(expectedOutput, output);
     }
 

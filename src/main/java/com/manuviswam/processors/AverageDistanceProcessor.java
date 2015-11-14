@@ -9,7 +9,7 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 
 public class AverageDistanceProcessor extends BaseProcessor {
-    int sessionInterval;
+    private final int sessionInterval;
 
     public AverageDistanceProcessor(int sessionInterval) {
         this.sessionInterval = sessionInterval;
@@ -26,7 +26,7 @@ public class AverageDistanceProcessor extends BaseProcessor {
             List<VehicleEntry> entriesInNorthDirection = getEntriesInTheDirection(entriesInTheSession, Direction.NORTH);
             double distanceInSouthDirection = getAverageDistance(entriesInSouthDirection);
             double distanceInNorthDirection = getAverageDistance(entriesInNorthDirection);
-            sb.append(session + " | Average distance between cars in south direction = " + distanceInSouthDirection + " meters, in north direction = "+ distanceInNorthDirection +" meters\n");
+            sb.append(session).append(" | Average distance between cars in south direction = ").append(distanceInSouthDirection).append(" meters, in north direction = ").append(distanceInNorthDirection).append(" meters\n");
         }
         return sb.toString();
     }

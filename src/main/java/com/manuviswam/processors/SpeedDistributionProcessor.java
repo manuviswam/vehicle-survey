@@ -6,7 +6,7 @@ import com.manuviswam.model.VehicleEntry;
 import java.util.List;
 
 public class SpeedDistributionProcessor extends BaseProcessor {
-    int sessionInterval;
+    private final int sessionInterval;
 
     public SpeedDistributionProcessor(int sessionInterval) {
         this.sessionInterval = sessionInterval;
@@ -19,11 +19,11 @@ public class SpeedDistributionProcessor extends BaseProcessor {
         List<SessionOfTheDay> sessions = SessionOfTheDay.createSessionsWithInterval(sessionInterval);
         for (SessionOfTheDay session : sessions){
             List<VehicleEntry> entriesInTheSession = getEntriesInTheSession(entries, session);
-            double totalSpeed = entriesInTheSession.stream().mapToDouble(entry -> entry.speedInKMPH()).sum();
+            double totalSpeed = entriesInTheSession.stream().mapToDouble(VehicleEntry::speedInKMPH).sum();
             double averageSpeed = 0;
             if (entriesInTheSession.size() > 0)
                 averageSpeed = totalSpeed/entriesInTheSession.size();
-            sb.append(session + " | Average speed = " + averageSpeed + "\n");
+            sb.append(session).append(" | Average speed = ").append(averageSpeed).append("\n");
         }
         return sb.toString();
     }

@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Application {
-    private Reader reader;
+    private final Reader reader;
     private Map<String, IDataProcessor> processors = new HashMap<>();
-    private boolean shouldWriteOutputToFile;
+    private final boolean shouldWriteOutputToFile;
 
     public Application(Reader reader, Map<String, IDataProcessor> processors, boolean shouldWriteOutputToFile) {
         this.reader = reader;

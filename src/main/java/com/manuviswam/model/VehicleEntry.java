@@ -7,9 +7,9 @@ import com.manuviswam.helpers.TimeParser;
 import java.util.Date;
 
 public class VehicleEntry {
-    private int frontAxleTime;
-    private int rearAxleTime;
-    private Direction direction;
+    private final int frontAxleTime;
+    private final int rearAxleTime;
+    private final Direction direction;
     private int day;
 
     public Direction getDirection() {
@@ -35,8 +35,7 @@ public class VehicleEntry {
         if (!isValid())
             return 0;
         double timeTakenToPassCounter = TimeParser.convertToHour(rearAxleTime - frontAxleTime);
-        double speedInMeterPerSecond =  App.LENGTH_OF_VEHICLE / timeTakenToPassCounter;
-        return speedInMeterPerSecond;
+        return App.LENGTH_OF_VEHICLE / timeTakenToPassCounter;
     }
 
     public Date entryTime(){

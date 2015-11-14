@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class VehicleCountProcessor extends BaseProcessor {
-    int interval; //in minutes
+    private final int interval; //in minutes
 
     public VehicleCountProcessor(int interval) {
         this.interval = interval;
@@ -31,7 +31,7 @@ public class VehicleCountProcessor extends BaseProcessor {
             for (int day = 0; day < App.NUMBER_OF_DAYS; day++) {
                 int southCount = countEntriesForTheDayForDirection(sessionEntries, day, Direction.SOUTH);
                 int northCount = countEntriesForTheDayForDirection(sessionEntries, day, Direction.NORTH);
-                sb.append(" | Day " + day + " Count South = " + southCount + " North = " + northCount);
+                sb.append(" | Day ").append(day).append(" Count South = ").append(southCount).append(" North = ").append(northCount);
                 totalCountAcrossDays += southCount + northCount;
             }
             sb.append("\n");
@@ -40,7 +40,7 @@ public class VehicleCountProcessor extends BaseProcessor {
                 peakSession = session;
             }
         }
-        sb.append("\n" + peakSession + " is peak session with a vehicle count of " + peakVehicleCount + " across " + App.NUMBER_OF_DAYS + " days");
+        sb.append("\n").append(peakSession).append(" is peak session with a vehicle count of ").append(peakVehicleCount).append(" across ").append(App.NUMBER_OF_DAYS).append(" days");
         return sb.toString();
     }
 

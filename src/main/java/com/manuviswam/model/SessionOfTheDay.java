@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.SimpleTimeZone;
 
 public class SessionOfTheDay {
-    public Date startTime;
-    public Date endTime;
+    public final Date startTime;
+    public final Date endTime;
 
     private SessionOfTheDay(Date startTime, Date endTime) {
         this.startTime = startTime;

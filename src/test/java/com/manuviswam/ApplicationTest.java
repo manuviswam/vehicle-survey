@@ -1,6 +1,5 @@
 package com.manuviswam;
 
-import com.manuviswam.io.FileHelper;
 import com.manuviswam.model.VehicleEntry;
 import com.manuviswam.processors.IDataProcessor;
 import org.junit.After;
@@ -14,7 +13,8 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ApplicationTest {
 
@@ -87,7 +87,7 @@ public class ApplicationTest {
 
     class FakeProcessor implements IDataProcessor {
         private boolean invoked;
-        private String returnValue;
+        private final String returnValue;
 
         public FakeProcessor(String returnValue) {
             invoked = false;
